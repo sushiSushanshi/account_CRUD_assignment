@@ -1,13 +1,11 @@
 package com.account.exception.handler;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.hibernate.TransientPropertyValueException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -27,11 +25,17 @@ public class ApplicationExceptionHandler {
 	
 	@ExceptionHandler(SQLException.class)
 	public String handleInvalidArgumentsa(SQLException e){
-		return e.getLocalizedMessage();
+		return e.getMessage();
 	}
 	
 	@ExceptionHandler(TransientPropertyValueException.class)
 	public String handleInvalidArgumentsa(TransientPropertyValueException e){
-		return e.getLocalizedMessage();
+		return e.getMessage();
+	}
+	
+	
+	@ExceptionHandler(NoSuchElementException.class)
+	public String handleInvalidArgumentsa(NoSuchElementException e){
+		return e.getMessage();
 	}
 }

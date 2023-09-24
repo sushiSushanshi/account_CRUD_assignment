@@ -2,20 +2,16 @@ package com.account.entity;
 
 import java.sql.Date;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,14 +32,17 @@ public class CustomerDetails {
 	@Column(name="customer_id")
 	private long customerId;
 	
-	@Pattern(regexp ="^[MF]$")
+	@NotBlank(message="name should not be blank")
+	@Pattern(regexp ="^[MF]$" , message = "sex must be M or F")
 	@Column(name = "sex")
 	private String sex;
 	
+	@NotNull
 	@Temporal(TemporalType.DATE)
     @Column(name = "dob", columnDefinition = "DATE CHECK (dob < '2002-01-01')")
 	private Date DOB;
 	
 	@Column(name="city")
+	@NotBlank(message= "city must not be blank")
 	private String city;
 }
